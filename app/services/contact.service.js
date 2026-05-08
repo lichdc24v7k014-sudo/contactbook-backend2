@@ -12,11 +12,14 @@ class ContactService {
       address: payload.address,
       phone: payload.phone,
       favorite: payload.favorite,
+      group: payload.group,
     };
+
     // Remove undefined fields
     Object.keys(contact).forEach((key) => {
       contact[key] === undefined && delete contact[key];
     });
+
     return contact;
   }
 
@@ -25,7 +28,7 @@ class ContactService {
     const result = await this.Contact.findOneAndUpdate(
       contact,
       { $set: { favorite: contact.favorite === true } },
-      { returnDocument: "after", upsert: true }
+      { returnDocument: "after", upsert: true },
     );
     return result;
   }
@@ -55,7 +58,7 @@ class ContactService {
     const result = await this.Contact.findOneAndUpdate(
       filter,
       { $set: update },
-      { returnDocument: "after" }
+      { returnDocument: "after" },
     );
     return result;
   }
